@@ -3,6 +3,10 @@ Tool to check AWS S3 bucket
 
 ### Setup
 Duplicate `.env.sample` as `.env` and put your s3 bucket access details
+Then run
+```
+npm install
+```
 
 #### To list objects
 ```
