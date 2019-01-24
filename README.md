@@ -8,7 +8,6 @@ Duplicate `.env.sample` as `.env` and put your s3 bucket access details
 ```
 node index.js -l
 ```
-Tool to check AWS S3 bucket
 
 #### To upload object
 ```
