@@ -39,7 +39,9 @@ if (action === 'list') {
       console.log(`${key}:`, data[key]);
     });
     console.log('List of objects:');
-    console.log(JSON.stringify(objects, null, 2));
+    console.log(JSON.stringify(objects.map(obj => Object.assign({
+      link: `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${obj.Key}`,
+    }, obj)), null, 2));
   });
 }
 
