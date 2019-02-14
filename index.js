@@ -25,8 +25,8 @@ const params = {
   Bucket: process.env.S3_BUCKET,
 };
 
-if (action === 'list') {
-  s3.listObjects(params, (err, data) => {
+const listObject = (continuationToken) => {
+  s3.listObjectsV2(Object.assign({}, params, { ContinuationToken: continuationToken }), (err, data) => {
     if (err) {
       console.log(err, err.stack);
       return;
@@ -42,7 +42,16 @@ if (action === 'list') {
     console.log(JSON.stringify(objects.map(obj => Object.assign({
       link: `https://${process.env.S3_BUCKET}.s3.amazonaws.com/${obj.Key}`,
     }, obj)), null, 2));
+
+    if (data.IsTruncated) {
+      // list paginated results
+      listObject(data.NextContinuationToken);
+    }
   });
+};
+
+if (action === 'list') {
+  listObject();
 }
 
 if (action === 'upload') {
